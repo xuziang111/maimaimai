@@ -6,6 +6,7 @@ import Foot from 'components/Foot.vue'
 
 import url from 'js/api.js'
 import axios from "axios"
+import { indigo } from 'color-name'
 
 
 new Vue({
@@ -45,5 +46,17 @@ new Vue({
         console.log('xxx')
         this.getTopLists()
         this.getSubLists(0,0)
+    },
+    filters:{
+        getDot(price){
+            let len = price.toString().length
+            let temp = price.toString().lastIndexOf('.')
+            if(temp === -1){
+                price = price +'.00'
+            }else if(len - temp === 2){
+                price = price + '0'
+            }
+            return price
+        }
     }
 }).$mount("#app")
