@@ -6,18 +6,24 @@ import cart from '../pages/cart/cart.vue';
 Vue.use(VueRouter)
 
   const routes = [
-  {
-    path: '/index',
-    name: 'index',
-    component: index,
-    meta: { requiresAuth: false },
-},
-  {
-    path: '/cart',
-    name: 'cart',
-    component: cart,
-    meta: { requiresAuth: false },
-},
+//   {
+//     path: '/index',
+//     name: 'index',
+//     component: index,
+//     meta: { requiresAuth: false },
+// },
+//   {
+//     path: '/cart',
+//     name: 'cart',
+//     component: cart,
+//     meta: { requiresAuth: false },
+// },
+// {
+//   path: '/category',
+//   name: 'category',
+//   component: cart,
+//   meta: { requiresAuth: false },
+// },
 ]
 
 const router = new VueRouter({

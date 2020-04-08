@@ -1,14 +1,16 @@
 import { forestgreen } from "color-name"
 
 let url ={
-    hotLists:'/get/example/1586250292915'
+    hotLists:'/get/index/hotLists',
+    banner:'/get/index/banner',
+    topList:'/get/category/topList'
 }
 
 
 //开发环境与生产环境的手动切换
 // let host = ''
 
-// let host = 'http://rap2.taobao.org:38080/app/mock/7058/get'
+// let host = 'http://rap2.taobao.org:38080/app/mock/7058'
 let host = 'http://rap2.taobao.org:38080/app/mock/249892'
 
 for(let key in url){
