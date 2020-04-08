@@ -74,21 +74,24 @@
           </div>
         </div>
         <div class="hot-goods js-waterfull-wrap" data-src="">
-          <ul class="js-list js-lazy" data-src="">
-            <li>
+          <ul class="js-list js-lazy" v-infinite-scroll="getLists"
+          infinite-scroll-disabled="loading"
+          infinite-scroll-distance="100" data-src="">
+            
+            <li v-for='list in lists' :key='list.id'>
               <div class="goods-item">
                 <a href="https://h5.youzan.com/v2/showcase/goods?alias=2fwig6rnqfq6m&amp;source=yzapp&amp;f_platform=yzapp">
                   <div class="thumb img-box">
-                    <img class="fadeIn" src="https://img.yzcdn.cn/upload_files/2017/05/06/Fhy3xjNz5XWtcHM0YCZBsUPFpaXL.jpg?imageView2/2/w/320/h/0/q/75/format/jpg">
+                    <img class="fadeIn" :src="list.img">
                   </div>
                   <div class="detail">
-                    <div class="title">i-mu/幻响醛击手除甲醛</div>
-                    <div class="price">￥149.00</div>
+                    <div class="title">{{list.name}}</div>
+                    <div class="price">￥{{list.price}}</div>
                   </div>
                 </a>
               </div>
             </li>
-            <li>
+            <!-- <li>
               <div class="goods-item">
                 <a href="https://h5.youzan.com/v2/showcase/goods?alias=365dgchyzdtxe&amp;source=yzapp&amp;f_platform=yzapp">
                   <div class="thumb img-box">
@@ -204,9 +207,9 @@
                   </div>
                 </a>
               </div>
-            </li>
+            </li> -->
           </ul>
-          <div class="loading-more"><span></span></div>
+          <div class="loading-more" v-show="loading"><span></span></div>
         </div>
         <div class="js-show-find category-guid" style="display: none;"></div>
       </div>
