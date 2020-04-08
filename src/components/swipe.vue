@@ -1,7 +1,7 @@
 <template>
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swp-page swiper-slide" v-for="list in lists">
+            <div class="swp-page swiper-slide" v-for="(list,index) in lists" :key="index">
                 <a class="js-no-follow" :href="list.url">
                     <img class="goods-main-photo fadeIn" :src="list.image">
                 </a>
@@ -26,19 +26,9 @@ export default {
 
     },
     mounted(){
-    // new Swiper ('.swiper-container', {
-    // // direction: 'vertical', // 垂直切换选项
-    // loop: true, // 循环模式选项
-    
-    // // 如果需要分页器
-    // pagination: {
-    //   el: '.swiper-pagination',
-    // },
-//   })  
-    },
-    watch:{
-        lists:function(){
-            new Swiper ('.swiper-container', {
+        new Swiper ('.swiper-container', {
+            observer: true,
+            observeParents: true,
             // direction: 'vertical', // 垂直切换选项
             loop: true, // 循环模式选项
     
@@ -47,6 +37,9 @@ export default {
                 el: '.swiper-pagination',
             },
             })  
+    },
+    watch:{
+        lists:function(){ 
         }
     }
 }
@@ -55,6 +48,10 @@ export default {
 <style scoped>
     .swiper-slide img{
         height:100%;
-        widht:100%;
+        width:100%;
+    }
+    .js-no-follow{
+        width:100%;
+        height:100%;
     }
 </style>
