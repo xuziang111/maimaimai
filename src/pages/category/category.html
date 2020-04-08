@@ -81,7 +81,7 @@
       </div>
       <div class="class-category">
         <div id="scroll-main-wrap" class="main-content">
-          <div id="scroll-main-content" class="js-main-content inner-content" style="height: 943px; transform: translate3d(0px, 0px, 0px);" v-show="topIndex==0">
+          <div id="scroll-main-content" class="js-main-content inner-content" style="height: 943px; transform: translate3d(0px, 0px, 0px);" v-show="topIndex==0&&rankData">
             <div class="hot-wrap">
               <div class="hot-goods">
                 <div class="hot-title">
@@ -213,15 +213,15 @@
               </div>
             </div>
           </div>
-          <div id="scroll-main-content" class="js-main-content inner-content" style="height: 534px; transform: translate3d(0px, 0px, 0px);" v-show="topIndex>0">
+          <div id="scroll-main-content" class="js-main-content inner-content" style="height: 534px; transform: translate3d(0px, 0px, 0px);" v-show="topIndex>0&&subData">
             <h3 class="category-title">热门品牌 </h3>
             <ul class="category-content">
-              <li class="category-item js-category-item" data-item-id="85" data-item-name="良品铺子">
-                <img src="https://img.yzcdn.cn/o_1a2m590lg110p1mp21nr11ffmpsl9.jpg?imageView2/2/w/120/h/0/q/75/format/jpg" alt="良品铺子" class="category-img">
+              <li class="category-item js-category-item" :data-item-id="list.id" :data-item-name="list.name" v-for="(list,index) in subData.brandList">
+                <img :src="list.img" :alt="list.name" class="category-img">
                 <span class="category-item-name">
-                良品铺子            </span>
+                {{list.name}}            </span>
               </li>
-              <li class="category-item js-category-item" data-item-id="83" data-item-name="周黑鸭">
+              <!-- <li class="category-item js-category-item" data-item-id="83" data-item-name="周黑鸭">
                 <img src="https://img.yzcdn.cn/o_1a2m59s44mo61kid1ikd5mv1cc9.jpg?imageView2/2/w/120/h/0/q/75/format/jpg" alt="周黑鸭" class="category-img">
                 <span class="category-item-name">
                 周黑鸭            </span>
@@ -245,16 +245,16 @@
                 <img src="https://img.yzcdn.cn/upload_files/2015/12/31/FgZ1wJ7Ag95pPFZUte2he6bzrtSk.jpg?imageView2/2/w/120/h/0/q/75/format/jpg" alt="齐峰果业" class="category-img">
                 <span class="category-item-name">
                 齐峰果业            </span>
-              </li>
+              </li> -->
             </ul>
             <h3 class="category-title"> 热门分类  </h3>
             <ul class="category-content">
-              <li class="category-item js-category-item" data-item-id="10" data-item-name="水果">
-                <img src="https://img.yzcdn.cn/upload_files/2015/12/28/Fk8hpTtgWFr_q7FCCGdzqXsOkYms.jpg?imageView2/2/w/120/h/0/q/75/format/jpg" alt="水果" class="category-img">
+              <li class="category-item js-category-item" :data-item-id="list.id" :data-item-name="list.name" v-for="(list,index) in subData.categoryList">
+                <img :src="list.img" :alt="list.name" class="category-img">
                 <span class="category-item-name">
-                水果            </span>
+                  {{list.name}}            </span>
               </li>
-              <li class="category-item js-category-item" data-item-id="835" data-item-name="生鲜">
+              <!-- <li class="category-item js-category-item" data-item-id="835" data-item-name="生鲜">
                 <img src="https://img.yzcdn.cn/upload_files/2015/12/28/FhUo5oH7FREcNyOQVNaSgeF3IHUw.jpg?imageView2/2/w/120/h/0/q/75/format/jpg" alt="生鲜" class="category-img">
                 <span class="category-item-name">
                 生鲜            </span>
@@ -293,7 +293,7 @@
                 <img src="https://img.yzcdn.cn/upload_files/2015/12/28/Ft9GDVJJ39BaoliQ2fUn546haQ8C.jpg?imageView2/2/w/120/h/0/q/75/format/jpg" alt="营养保健品" class="category-img">
                 <span class="category-item-name">
                 营养保健品            </span>
-              </li>
+              </li> -->
             </ul>
           </div>
         </div>

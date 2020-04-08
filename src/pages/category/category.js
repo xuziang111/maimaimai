@@ -15,8 +15,8 @@ new Vue({
     data:{
         topLists:null,
         topIndex: 0,
-        subData:null,
-        rankData:null,
+        subData:[],
+        rankData:[],
     },
     methods:{
         getTopLists(){
