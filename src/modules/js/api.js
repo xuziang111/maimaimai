@@ -3,7 +3,10 @@ import { forestgreen } from "color-name"
 let url ={
     hotLists:'/get/index/hotLists',
     banner:'/get/index/banner',
-    topList:'/get/category/topList'
+    topLists:'/get/category/topList',
+    subLists:'/post/category/subLists',
+    rank:'/get/category/rank',
+    
 }
 
 
