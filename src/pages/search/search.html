@@ -23,7 +23,7 @@
 </head>
 
 <body class=" " style="min-height: 667px;">
-  <div class="container with-top-search" style="min-height: 667px;">
+  <div class="container with-top-search" style="min-height: 667px;" @touchmove="isTopShow">
     <div class="custom-search js-search-bar">
       <form>
         <input type="search" class="custom-search-input" autocomplete="off" name="keyword" :value="keyword" placeholder="搜索更赞的商品" style="padding-left: 66px;">
@@ -51,7 +51,9 @@
     <div class="search-content" style="display: none;"></div>
     <div class="content">
       <div class="search-wrap js-waterfull-wrap">
-        <ul class="js-list">
+        <ul class="js-list" id="js-list" v-infinite-scroll="getSearchList"
+        infinite-scroll-disabled="loading"
+        infinite-scroll-distance="10">
           <li class="goods-item" v-for="(list,index) in searchList">
             <a href="https://h5.youzan.com/v2/showcase/goods?alias=2755moo9i2r1c&amp;source=yzapp&amp;f_platform=yzapp">
               <div class="thumb">
@@ -190,7 +192,7 @@
         <div class="list-finished">已经没有更多了</div>
       </div>
     </div>
-    <div class="go-to-top" style="display: block; transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);"></div>
+    <div class="go-to-top" @click="upToTop" style="display: block; transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);" v-show="isShow"></div>
   </div>
 </body>
 
