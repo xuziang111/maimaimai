@@ -216,7 +216,12 @@
           <div id="scroll-main-content" class="js-main-content inner-content" style="height: 534px; transform: translate3d(0px, 0px, 0px);" v-show="topIndex>0&&subData">
             <h3 class="category-title">热门品牌 </h3>
             <ul class="category-content">
-              <li class="category-item js-category-item" :data-item-id="list.id" :data-item-name="list.name" v-for="(list,index) in subData.brandList">
+              <li class="category-item js-category-item" 
+              :data-item-id="list.id" 
+              :data-item-name="list.name" 
+              v-for="(list,index) in subData.brandList"
+              @click="toSearch(list)"
+              >
                 <img :src="list.img" :alt="list.name" class="category-img">
                 <span class="category-item-name">
                 {{list.name}}            </span>
