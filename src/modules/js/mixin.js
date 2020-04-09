@@ -1,3 +1,4 @@
+import Foot from 'components/Foot.vue'
 let mixin={
     filters:{
         getDot(price){
@@ -10,6 +11,9 @@ let mixin={
             }
             return price
         }
-    }
+    },
+    components:{
+        Foot
+    },
 }
 export default mixin

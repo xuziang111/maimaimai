@@ -2,17 +2,17 @@ import 'css/common.css'
 import './category.css'
 
 import Vue from 'vue/dist/vue.esm.js'
-import Foot from 'components/Foot.vue'
+// import Foot from 'components/Foot.vue'
 
 import url from 'js/api.js'
 import axios from "axios"
-import { indigo } from 'color-name'
+import mixin from "js/mixin"
 
 
 new Vue({
-    components:{
-        Foot
-    },
+    // components:{
+    //     Foot
+    // },
     data:{
         topLists:null,
         topIndex: 0,
@@ -50,16 +50,17 @@ new Vue({
         this.getTopLists()
         this.getSubLists(0,0)
     },
-    filters:{
-        getDot(price){
-            let len = price.toString().length
-            let temp = price.toString().lastIndexOf('.')
-            if(temp === -1){
-                price = price +'.00'
-            }else if(len - temp === 2){
-                price = price + '0'
-            }
-            return price
-        }
-    }
+    mixins:[mixin],
+    // filters:{
+    //     getDot(price){
+    //         let len = price.toString().length
+    //         let temp = price.toString().lastIndexOf('.')
+    //         if(temp === -1){
+    //             price = price +'.00'
+    //         }else if(len - temp === 2){
+    //             price = price + '0'
+    //         }
+    //         return price
+    //     }
+    // }
 }).$mount("#app")
