@@ -6,7 +6,11 @@ import Vue from 'vue/dist/vue.esm.js'
 import url from 'js/api.js'
 import axios from "axios"
 import qs from "qs"
+
 import Velocity from "velocity-animate"
+
+import mixin from "js/mixin"
+
 
 
 import { InfiniteScroll } from 'mint-ui';
@@ -20,6 +24,7 @@ new Vue({
         loading:false,
         pageNum:1,
     },
+    mixins:[mixin],
     created(){
         this.getSearchList()
     },
