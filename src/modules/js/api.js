@@ -6,7 +6,9 @@ let url ={
     topLists:'/get/category/topList',
     subLists:'/post/category/subLists',
     rank:'/get/category/rank',
-    searchList:'/post/search/list'
+    searchList:'/post/search/list',
+    details:'/post/goods/details',
+    dealList:'/post/goods/deal'
     
 }
 
