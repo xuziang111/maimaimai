@@ -581,7 +581,7 @@
   
   .fullscreen-guide.hide,
   .motify {
-    display: none
+    /* display: none */
   }
   
   .btn-disabled,
@@ -729,7 +729,7 @@
     width: 220px;
     padding: 0;
     margin: 0 0 0 -110px;
-    z-index: 9999;
+    z-index: 9;
     background: rgba(0, 0, 0, .8);
     color: #fff;
     line-height: 1.5em;
