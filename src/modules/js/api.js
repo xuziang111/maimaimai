@@ -9,8 +9,11 @@ let url ={
     searchList:'/post/search/list',
     details:'/post/goods/details',
     dealList:'/post/goods/deal',
-    addCart:'/post/cart/add'
-    
+    addCart:'/post/cart/add',
+    cartLists:'/post/cart/list',
+    cartReduce:'/post/cart/reduce',
+    cartRemove:'/post/cart/remove',
+    cartMremove:'/post/cart/remove'
 }
 
 
