@@ -13,6 +13,9 @@ new Vue({
   data:{
     lists:null,
     total:0,
+    editingShop:null,
+    editingIndex:-1,
+    isediting:false,
   },
   methods:{
     getList(){
@@ -21,8 +24,12 @@ new Vue({
         let temp = res.data.cartList
         temp.forEach(shop=>{
           shop.checked = true
+          shop.editing = false
+          shop.removeChecked = false
+          shop.editingMsg = "编辑"
           shop.goodsList.forEach(goods=>{
             goods.checked = true
+            goods.removeChecked = false
           })
         })
         this.lists = temp
@@ -43,6 +50,20 @@ new Vue({
     },
     selectAll(){
       this.allSelected = !this.allSelected
+    },
+    edit(shop,shopIndex){
+      shop.editing = !shop.editing
+      shop.editingMsg = shop.editing?'完成':'编辑'
+      if(shop.editing === true){
+        this.lists.forEach((item,i)=>{
+          if(shopIndex !== i){
+            item.editing = false
+            item.editingMsg = this.editing?'':'编辑'
+          }
+        })
+      }
+      this.editingShop = shop.editing?shop:null
+      this.editingIndex = shop.editing?shopIndex:-1
     },
     check(){
       axios.post(url.check,{selectLists}).then(res=>{
@@ -88,6 +109,17 @@ new Vue({
         return arr
       }
       return []
+    },
+    removeList(){
+
+    },
+    allRemoveSelected:{
+      get(){
+
+      },
+      set(){
+        
+      }
     }
   },
   created(){
