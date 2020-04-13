@@ -12,6 +12,7 @@ Vue.config.productionTip = false
 new Vue({
   data:{
     lists:null,
+    total:0,
   },
   methods:{
     getList(){
@@ -42,7 +43,12 @@ new Vue({
     },
     selectAll(){
       this.allSelected = !this.allSelected
-    }
+    },
+    check(){
+      axios.post(url.check,{selectLists}).then(res=>{
+
+      })
+  }
   },
   computed:{
     allSelected:{
@@ -63,6 +69,25 @@ new Vue({
         })
         return newVal
       }
+    },
+    selectLists(){
+      console.log('uuu')
+      let arr = []
+      let total = 0
+      if(this.lists&&this.lists.length){
+        this.lists.forEach(shop=>{
+          shop.goodsList.forEach(goods=>{
+            if(goods.checked){
+              arr.push(goods)
+              total = total + goods.price*100* goods.number
+              console.log(total)
+            }
+          })
+        })
+        this.total = total/100
+        return arr
+      }
+      return []
     }
   },
   created(){

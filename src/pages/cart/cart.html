@@ -178,11 +178,11 @@
               <div class="select-all"><span class="check" :class="{checked:allSelected}"></span> 全选
               </div>
               <!-- 显示状态 -->
-              <div class="total-price" style="display: none;">
-                合计：¥<span class="js-total-price" style="color: rgb(255, 102, 0);">684.99</span>
+              <div class="total-price">
+                合计：¥<span class="js-total-price" style="color: rgb(255, 102, 0);">{{total}}</span>
                 <p class="c-gray-dark">不含运费</p>
               </div>
-              <button href="javascript:;" class="js-go-pay btn btn-orange-dark font-size-14" disabled>
+              <button href="javascript:;" class="js-go-pay btn btn-orange-dark font-size-14" disabled :check="selectLists">
                 结算 (3)
               </button>
               <!-- 编辑状态 -->
