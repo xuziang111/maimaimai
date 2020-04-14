@@ -16,8 +16,37 @@ new Vue({
     editingShop:null,
     editingIndex:-1,
     isediting:false,
+    removePopup:false,
+    removeMsg:'确认删除',
+    removeData:null,
   },
   methods:{
+    removeConfirm(){
+      let {shop,shopIndex,goods,goodsIndex} = this.removeData
+      axios.post(url.cartRemove,{id:goods.id}).then(res=>{
+
+      }).then(res=>{
+        shop.goodsList.splice(goodsIndex,1)
+        if(!shop.goodsList.length){
+          this.lists.splice(shopIndex,1)
+          this.removeShop()
+        }
+        this.removePopup = false
+      })
+    },
+    remove(shop,shopIndex,goods,goodsIndex){
+      console.log('xxx')
+      this.removePopup = !this.removePopup
+      this.removeData={shop,shopIndex,goods,goodsIndex}
+    },
+    removeShop(){
+      this.editingShop = null
+      this.editingShopIndex = -1
+      this.lists.forEach(shop=>{
+        shop.editing = false
+        shop.editingMsg = "编辑"
+      })
+    },
     getList(){
       console.log('xxx')
       axios.post(url.cartLists).then((res)=>{
@@ -37,19 +66,22 @@ new Vue({
       })
     },
     selectGoods(goods,shop){
-      goods.checked = !goods.checked
-      shop.checked = shop.goodsList.every(goods=>{
-        return goods.checked
+      let attr = this.editingShop ? 'removeChecked':'checked'
+      goods[attr] = !goods[attr]
+      shop[attr] = shop.goodsList.every(goods=>{
+        return goods[attr]
       })
     },
     selectShop(shop){
-      shop.checked = !shop.checked
+      let attr = this.editingShop ? 'removeChecked':'checked'
+      shop[attr] = !shop[attr]
       shop.goodsList.forEach(goods=>{
-        goods.checked = shop.checked
+        goods[attr] = shop[attr]
       })
     },
     selectAll(){
-      this.allSelected = !this.allSelected
+      let attr = this.editingShop ? 'allRemoveSelected':'allSelected'
+      this[attr] = !this[attr]
     },
     edit(shop,shopIndex){
       shop.editing = !shop.editing
@@ -69,7 +101,24 @@ new Vue({
       axios.post(url.check,{selectLists}).then(res=>{
 
       })
-  }
+  },
+  add(goods){
+    goods.number++
+    // axios.post(url.cartAdd,{id:goods.id,number:1}).then(res=>{
+
+    // }).then(res=>{
+    //   goods.number++
+    // })
+  },
+  reduce(goods){
+    if(goods.number === 1) return
+    goods.number--
+    // axios.post(url.cartReduce,{id:goods.id,number:1}).then(res=>{
+
+    // }).then(res=>{
+    //   goods.number--
+    // })
+  },
   },
   computed:{
     allSelected:{
@@ -100,25 +149,42 @@ new Vue({
           shop.goodsList.forEach(goods=>{
             if(goods.checked){
               arr.push(goods)
-              total = total + goods.price*100* goods.number
+              total = total + goods.price* goods.number
               console.log(total)
             }
           })
         })
-        this.total = total/100
+        this.total = total.toFixed(2)
+      }
+      return []
+    },
+    removeLists(){
+      if(this.editingShop){
+        let arr=[]
+        this.editingShop.goodsList.forEach(goods=>{
+          if(goods.removeChecked){
+            arr.push(goods)
+          }
+        })
+        console.log(arr.length)
         return arr
       }
       return []
     },
-    removeList(){
-
-    },
     allRemoveSelected:{
       get(){
-
+        if(this.editingShop){
+          return this.editingShop.removeChecked
+        }
+        return false
       },
-      set(){
-        
+      set(newVal){
+        if(this.editingShop){
+          this.editingShop.removeChecked = newVal
+          this.editingShop.goodsList.forEach(goods=>{
+            goods.removeChecked = newVal
+          })
+        }
       }
     }
   },

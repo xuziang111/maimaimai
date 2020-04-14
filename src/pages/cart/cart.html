@@ -81,11 +81,11 @@
                           <div class="num" v-show="shop.editing">
                             <!---->
                             <div class="quantity">
-                              <button type="button" class="minus disabled"></button>
+                              <button type="button" class="minus" :class="{disabled:goods.number===1}"></button>
                               <input type="text" pattern="[0-9]*" class="txt" v-model="goods.number">
                               <button type="button" class="plus "></button>
-                              <div class="response-area response-area-minus"></div>
-                              <div class="response-area response-area-plus"></div>
+                              <div class="response-area response-area-minus" @click="reduce(goods)"></div>
+                              <div class="response-area response-area-plus" @click="add(goods)"></div>
                             </div>
                           </div>
                           <div class="price c-orange">
@@ -93,23 +93,21 @@
                         </div>
                         <div class="error-box"></div>
                       </div>
-                      <div class="delete-btn"><span>删除</span></div>
+                      <div class="delete-btn" @click="remove(shop,shopIndex,goods,goodsIndex)"><span>删除</span></div>
                     </div>
                   </li>
                 </ul>
               </div>
             </div>
-            <div class="block block-order block-cart">
+            <!-- <div class="block block-order block-cart">
               <div class="header">
                 <div class="select-group js-select-group"><span class="check checked"></span>
                 </div> <a class="shop-title">
                   <i class="custom-store-img">店铺：</i>猫咪森林</a>
                 <a href="javascript:;" data-type="cart" class="j-edit-list pull-right c-blue font-size-12 edit-list">
-                  <!---->
                   编辑
                 </a>
               </div>
-              <!---->
               <div>
                 <ul class="js-list block block-list block-list-cart border-0">
                   <li class="block-item block-item-cart">
@@ -117,7 +115,6 @@
                       <div class="check-container"><span class="check checked"></span></div>
                       <div class="name-card clearfix">
                         <a href="https://h5.youzan.com/v2/showcase/goods?alias=2orhx1x0k6mpg" class="thumb js-goods-link"><img data-src="https://img.yzcdn.cn/upload_files/2017/07/03/FgvM-buQ1iwZoKjCv5J_K8_YMDlo.jpg!200x200.jpg" class="js-lazy" src="https://img.yzcdn.cn/upload_files/2017/07/03/FgvM-buQ1iwZoKjCv5J_K8_YMDlo.jpg?imageView2/2/w/200/h/200/q/75/format/webp">
-                          <!---->
                         </a>
                         <div class="detail"><a href="https://h5.youzan.com/v2/showcase/goods?alias=2orhx1x0k6mpg" class="js-goods-link"><h3 class="title js-ellipsis"><i>美翻了美爆了！值得ALL IN!炒鸡“温柔知性典雅温暖色”的8个色系！艺气息扑面而来！3CE MOOD RECIPE系列指甲油！</i></h3></a>
                           <p class="sku ellipsis">
@@ -125,7 +122,6 @@
                           </p>
                           <div class="num">
                             ×<span class="num-txt">1</span>
-                            <!---->
                           </div>
                           <div class="price c-orange">
                             ¥<span>12.99 </span></div>
@@ -137,7 +133,7 @@
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="js-invalid-goods shop-list">
             <p class="block invalid-list-title">
@@ -164,7 +160,7 @@
                       </div>
                       <div class="error-box">商品已售罄</div>
                     </div>
-                    <div class="delete-btn"><span>删除</span></div>
+                    <div class="delete-btn" @click="remove(shop,shopIndex,goods,goodsIndex)"><span>删除</span></div>
                   </div>
                 </li>
               </ul>
@@ -190,20 +186,34 @@
                 结算 ({{selectLists.length}})
               </button>
               <!-- 编辑状态 -->
-              <button href="javascript:;" class="j-delete-goods btn font-size-14 btn-red" v-show="editingShop">删除
+              <button href="javascript:;" :disabled="!removeLists.length" class="j-delete-goods btn font-size-14 btn-red" v-show="editingShop">删除
                     </button>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <div id="0SuefKPV4p" v-show="removePopup" style="height: 100%; position: fixed; top: 0px; left: 0px; right: 0px; background-color: rgba(0, 0, 0, 0.7); z-index: 1000;  opacity: 1;"></div>
+    <div id="d2tfiX27YS" v-show="removePopup" class="popout-confirm popout-box" style="overflow: hidden; position: absolute; z-index: 1000; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0px); visibility: visible; border-radius: 4px; background: white; width: 270px; padding: 15px; opacity: 1;">
+      <div class="confirm-content font-size-14" style="line-height: 20px; padding: 5px 5px 10px;">
+          {{removeMsg}}
+      </div>
+      <hr style="margin: 9px -15px 10px;">
+      <div class="btn-2-1" style="width: 47.5%;">
+          <p class="js-cancel center font-size-16" style="padding-top: 5px;" @click="removePopup=false">取消</p>
+      </div>
+      <div class="btn-2-1" style="width: 47.5%;">
+          <p class="js-ok center c-green font-size-16" style="padding-top: 5px;" @click="removeConfirm">确定</p>
+      </div>
+    </div>
   </div>
-  <div class="footer" style="min-height: 86px;">
+  <!-- <div class="footer" style="min-height: 86px;">
     <div class="copyright">
       <div class="ft-copyright " style="background-image: url(https://img.yzcdn.cn/upload_files/2016/11/15/147918630760182374.png);">
         <a class="yz-logo" href="https://www.youzan.com/?from_source=support_logo">有赞提供技术支持</a> </div>
     </div>
-  </div>
+  </div> -->
 </body>
 
 </html>
