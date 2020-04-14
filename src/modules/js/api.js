@@ -12,8 +12,8 @@ let url ={
     addCart:'/post/cart/add',
     cartLists:'/post/cart/list',
     cartReduce:'/post/cart/reduce',
-    cartRemove:'/post/cart/remove',
     cartRemove:'/post/cart/removeGood',
+    cartsRemove:"/post/cart/removeGoods"
 }
 
 

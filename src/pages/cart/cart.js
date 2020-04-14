@@ -22,21 +22,46 @@ new Vue({
   },
   methods:{
     removeConfirm(){
-      let {shop,shopIndex,goods,goodsIndex} = this.removeData
-      axios.post(url.cartRemove,{id:goods.id}).then(res=>{
-
-      }).then(res=>{
-        shop.goodsList.splice(goodsIndex,1)
-        if(!shop.goodsList.length){
-          this.lists.splice(shopIndex,1)
-          this.removeShop()
-        }
-        this.removePopup = false
-      })
+      if(this.removeMsg === "确定要删除该商品吗?"){
+        let {shop,shopIndex,goods,goodsIndex} = this.removeData
+        axios.post(url.cartRemove,{id:goods.id}).then(res=>{
+  
+        }).then(res=>{
+          shop.goodsList.splice(goodsIndex,1)
+          if(!shop.goodsList.length){
+            this.lists.splice(shopIndex,1)
+            this.removeShop()
+          }
+          this.removePopup = false
+        })
+      }else{
+        let ids = []
+        this.removeLists.forEach(goods=>{
+          ids.push(goods.id)
+        })
+        axios.post(url.cartsRemove,{ids}).then(res=>{
+          let arr=[]
+          this.editingShop.goodsList.forEach((goods)=>{
+            let index = this.removeLists.findIndex(item=>{
+              return item.id == goods.id
+            })
+            if(index === -1){
+              arr.push(goods)
+            }
+          })
+          if(arr.length){
+            this.editingShop.goodsList = arr
+          }else{
+            this.lists.splice(this.editingShopIndex,1)
+            this.removeShop()
+          }
+          this.removePopup = false
+        })
+      }
     },
     remove(shop,shopIndex,goods,goodsIndex){
-      console.log('xxx')
       this.removePopup = !this.removePopup
+      this.removeMsg = "确定要删除该商品吗?"
       this.removeData={shop,shopIndex,goods,goodsIndex}
     },
     removeShop(){
@@ -46,6 +71,10 @@ new Vue({
         shop.editing = false
         shop.editingMsg = "编辑"
       })
+    },
+    removeList(){
+      this.removePopup = true
+      this.removeMsg = `确定将所选的${this.removeLists.length}个商品删除`
     },
     getList(){
       console.log('xxx')
@@ -155,6 +184,7 @@ new Vue({
           })
         })
         this.total = total.toFixed(2)
+        return arr
       }
       return []
     },
