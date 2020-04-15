@@ -71,6 +71,15 @@ module.exports = {
             // 在这个页面中包含的块，默认情况下会包含
             // 提取出来的通用 chunk 和 vendor chunk。
             chunks: ['chunk-vendors', 'chunk-common', 'goods']
-        },      
+        },  
+        // address: {//新增的部份
+        //     entry: "./src/pages/address/address.js", // 配置入口js文件
+        //     template: "./src/pages/address/address.html", // 主页面
+        //     filename: "address.html", // 打包后的html文件名称
+        //     title: "详情", // 打包后的.html中<title>标签的文本内容
+        //     // 在这个页面中包含的块，默认情况下会包含
+        //     // 提取出来的通用 chunk 和 vendor chunk。
+        //     chunks: ['chunk-vendors', 'chunk-common', 'address']
+        // },     
         },
 }
