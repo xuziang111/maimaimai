@@ -27,10 +27,10 @@ let routes=[{
                     path:'all',
                     component:resolve =>require(['./components/all.vue'],resolve)
                 },
-                // {
-                //     path:'form',
-                //     component:resolve =>require(['./components/form.vue'],resolve)
-                // },
+                {
+                    path:'form',
+                    component:resolve =>require(['./components/form.vue'],resolve)
+                },
             ]
         },
     ]

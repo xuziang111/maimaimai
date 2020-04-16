@@ -94,5 +94,7 @@ export default {
 </script>
 
 <style scoped>
+@import "./member.css";
+@import "./member_base.css";
 
 </style>

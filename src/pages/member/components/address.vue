@@ -1,7 +1,5 @@
 <template>
-    <div>
         <router-view></router-view>
-    </div>
 </template>
 
 <script>
@@ -12,5 +10,5 @@ export default {
 
 <style>
 @import "./address.css";
-@import "./address_base.css";
+/* @import "./address_base.css"; */
 </style>
