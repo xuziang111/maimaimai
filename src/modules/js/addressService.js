@@ -5,8 +5,8 @@ class Addres{
     static list(){
         return fetch(url.addressLists)
     }
-    static add(data){
-        return fetch(url.add,data)
+    static add(data) {
+        return fetch(url.addressAdd, data)
     }
     static remove(id){
         return fetch(url.remove,id)

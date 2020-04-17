@@ -24,7 +24,7 @@
             </select>
             <select class="js-county-selector" name="area_code" v-model="districtValue">
               <option value="-1">选择地区</option>
-              <option :value="d.value" v-for="d in districtList">{{d.label}}>香洲区</option>
+              <option :value="d.value" v-for="d in districtList">{{d.label}}</option>
             </select>
           </div>
         </div>
@@ -34,13 +34,16 @@
         </div>
       </div>
     </div>
-    <div class="block section js-save block-control-btn">
+    <div class="block section js-save block-control-btn" @click="add">
       <div class="block-item c-blue center">保存</div>
     </div>
-    <div class="block section js-delete block-control-btn" v-show="type==='edit'">
+    <div class="block section js-delete block-control-btn" 
+    v-show="type==='edit'"
+    @click="remove"
+    >
       <div class="block-item c-red center">删除</div>
     </div>
-    <div class="block stick-bottom-row center js-save-default">
+    <div class="block stick-bottom-row center js-save-default" v-show="type=='edit'" @click="setDeafault">
       <button class="btn btn-standard js-save-default-btn">设为默认收货地址</button>
     </div>
   </div>
@@ -49,6 +52,7 @@
 <script>
 import "./address.css"
 import "./address_base.css"
+import addres from "js/addressService.js"
 
 export default {
 data(){
@@ -74,9 +78,46 @@ if(this.$route.query.instance){
   // {this.name,this.tel,this.provinceValue,this.cityValue,this.districtValue,this.address,this.id} = this.instance
   this.name = this.instance.name
 }
+if(this.type==='edit'){
+  let ad = this.instance
+  this.provinceValue = parseInt(ad.provinceValue)
+  this.name = ad.name
+  this.tel = ad.tel
+  this.address = ad.address
+  this.id = ad.id
+
+}
 
 },
 methods:{
+  add(){
+    let {name,tel,provinceValue,cityValue,districtValue,address} = this
+    let data = {name,tel,provinceValue,cityValue,districtValue,address}
+    console.log(data)
+    if(this.type=="add"){
+      addres.add(data).then(res=>{
+        this.$router.go(-1)
+      })
+    }
+    if(this.type==="edit"){
+      data.id = this.id
+      addres.updata(data,id).then(res=>{
+        this.$router.go(-1)
+      })
+    }
+  },
+  remove(){
+    if(window.confirm('确认删除?')){
+      addres.remove(this.id).then(res=>{
+        this.$router.go(-1)
+      })
+    }
+  },
+  setDefault(){
+      addres.setDefault(this.id).then(res=>{
+        this.$router.go(-1)
+      })
+  }
 
 },
 watch:{
@@ -91,10 +132,13 @@ watch:{
       return item.value === val
     })
     this.cityList = list[index].children
-    this.districtValue
-  }
-},
-cityValue(val){
+    this.districtValue = -1
+    this.cityValue = -1
+    if(this.type==='edit'){
+      this.cityValue = parseInt(this.instance.cityValue)
+    }
+  },
+  cityValue(val){
     if(this.cityValue===-1) {
       this.districtValue =-1
       return
@@ -105,7 +149,11 @@ cityValue(val){
     })
     this.districtList = list[index].children
     this.districtValue = -1
-}
+    if(this.type==='edit'){
+      this.districtValue = parseInt(this.instance.districtValue)
+    }
+  }
+},
 }
 </script>
 
