@@ -1,6 +1,6 @@
 <template>
     <div class="container " style="min-height: 597px;">
-    <div class="section section-first">
+    <div class="section section-first" :lists=lists>
       <div class="block form js-form">
         <input class="js-id" name="id" type="hidden" value="69150287">
         <div class="block-item" style="border-top:0;">
@@ -43,7 +43,7 @@
     >
       <div class="block-item c-red center">删除</div>
     </div>
-    <div class="block stick-bottom-row center js-save-default" v-show="type=='edit'" @click="setDeafault">
+    <div class="block stick-bottom-row center js-save-default" v-show="type=='edit'" @click="setDefault">
       <button class="btn btn-standard js-save-default-btn">设为默认收货地址</button>
     </div>
   </div>
@@ -71,6 +71,12 @@ data(){
     districtList:[]
   }
 },
+computed:{
+  lists:function(){
+    console.log('2222')
+    return this.$store.state.lists
+  }
+},
 created(){
 if(this.$route.query.instance){
   this.instance = JSON.parse(this.$route.query.instance)
@@ -95,32 +101,44 @@ methods:{
     let data = {name,tel,provinceValue,cityValue,districtValue,address}
     console.log(data)
     if(this.type=="add"){
-      addres.add(data).then(res=>{
-        this.$router.go(-1)
-      })
+      // addres.add(data).then(res=>{
+      //   this.$router.go(-1)
+      // })
+      console.log(this.$store.state.lists)
+      this.$store.dispatch('addAction',data)
+      console.log(this.$store.state.lists)
     }
     if(this.type==="edit"){
       data.id = this.id
-      addres.updata(data,id).then(res=>{
-        this.$router.go(-1)
-      })
+      // addres.updata(data).then(res=>{
+      //   this.$router.go(-1)
+      // })
+      this.$store.dispatch('updateAction',data)
     }
   },
   remove(){
     if(window.confirm('确认删除?')){
-      addres.remove(this.id).then(res=>{
-        this.$router.go(-1)
-      })
+      // addres.remove(this.id).then(res=>{
+      //   this.$router.go(-1)
+      // })
+      this.$store.dispatch('removeAction',this.id)
     }
   },
   setDefault(){
-      addres.setDefault(this.id).then(res=>{
-        this.$router.go(-1)
-      })
+      // addres.setDefault(this.id).then(res=>{
+      //   this.$router.go(-1)
+      // })
+      this.$store.dispatch('setDefaultAction',this.id)
   }
 
 },
 watch:{
+  lists:{
+    handler(){
+      this.$router.go(-1)
+    },
+    deep:true
+  },
   provinceValue(val){
     if(this.provinceValue===-1) {
       this.cityValue = -1

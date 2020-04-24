@@ -9,7 +9,7 @@ class Addres{
         return fetch(url.addressAdd, data)
     }
     static remove(id){
-        return fetch(url.remove,id)
+        return fetch(url.addressRemove,id)
     }
     static updata(data){
         return fetch(url.addressUpdate,data)

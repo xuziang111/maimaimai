@@ -23,16 +23,24 @@
 <script>
 import addres from "js/addressService.js"
 export default {
-  data(){
-    return{
-      lists:null
+  // data(){
+  //   return{
+  //     lists:null
+  //   }
+  // },
+  created(){
+    // addres.list().then(res=>{
+    //   this.lists = res.data.lists
+    //   console.log(res)
+    // })
+    if(!this.lists){
+      this.$store.dispatch('getLists')
     }
   },
-  created(){
-    addres.list().then(res=>{
-      this.lists = res.data.lists
-      console.log(res)
-    })
+  computed:{
+    lists(){
+      return this.$store.state.lists
+    }
   },
   methods:{
     toEdit(list){

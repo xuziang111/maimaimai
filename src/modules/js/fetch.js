@@ -1,5 +1,5 @@
 import axios from 'axios'
-// Vue.prototype.axios = axios
+// Vue.prototype.$http = axios
 function fetch(url,data) {
   return new Promise((resolve,reject) => {
     axios.post(url,data).then(res => {
