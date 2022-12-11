@@ -9,7 +9,7 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "mint-ui": "^2.2.13",
-    "qs": "^6.9.3",
+    "qs": "^6.5.3",
     "swiper": "^5.3.6",
     "velocity-animate": "^1.5.2",
     "vue": "^2.6.11",
